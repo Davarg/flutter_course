@@ -10,17 +10,38 @@ class Products extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Image.asset('assets/food.jpg'),
-          Text(products[index])
+          Text(products[index]),
+          ButtonBar(
+            alignment: MainAxisAlignment.center,
+            children: <Widget>[
+              FlatButton(
+                child: Text('Details'),
+                onPressed: () => {},
+              )
+            ],
+          )
         ],
       ),
     );
   }
 
+  Widget _buildProductList() {
+    Widget result = Center(
+      child: Text('No products found, please add some'),
+    );
+
+    if (products.length > 0) {
+      result = ListView.builder(
+        itemBuilder: _buildProductItem,
+        itemCount: products.length,
+      );
+    }
+
+    return result;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemBuilder: _buildProductItem,
-      itemCount: products.length,
-    );
+    return _buildProductList();
   }
 }
