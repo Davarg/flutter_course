@@ -33,6 +33,11 @@ class _ProductCreateState extends State<ProductCreatePage> {
             child: ListView(
               children: <Widget>[
                 TextFormField(
+                  validator: (String value) {
+                    if (value.isEmpty == true) {
+                      return 'Title must be not empty';
+                    }
+                  },
                   decoration: InputDecoration(
                     hintText: 'Title',
                   ),
@@ -41,15 +46,27 @@ class _ProductCreateState extends State<ProductCreatePage> {
                   },
                 ),
                 TextFormField(
+                  validator: (String value) {
+                    if (value.isEmpty == true) {
+                      return 'Price must be not empty';
+                    }
+                  },
                   decoration: InputDecoration(
                     hintText: 'Price',
                   ),
                   keyboardType: TextInputType.numberWithOptions(decimal: true),
                   onSaved: (String value) {
-                    _priceValue = double.parse(value);
+                    if (value.isEmpty == false) {
+                      _priceValue = double.parse(value);
+                    }
                   },
                 ),
                 TextFormField(
+                  validator: (String value) {
+                    if (value.isEmpty == true) {
+                      return 'Description must be not empty';
+                    }
+                  },
                   decoration: InputDecoration(
                     hintText: 'Description',
                   ),
@@ -67,16 +84,18 @@ class _ProductCreateState extends State<ProductCreatePage> {
                   color: Theme.of(context).accentColor,
                   textColor: Colors.white,
                   onPressed: () {
-                    _formKey.currentState.save();
+                    if (_formKey.currentState.validate() == true) {
+                      _formKey.currentState.save();
 
-                    final Map<String, dynamic> product = {
-                      'title': _titleValue,
-                      'description': _descValue,
-                      'price': _priceValue,
-                      'image': 'assets/food.jpg',
-                    };
-                    widget.addProduct(product);
-                    Navigator.pushReplacementNamed(context, '/products');
+                      final Map<String, dynamic> product = {
+                        'title': _titleValue,
+                        'description': _descValue,
+                        'price': _priceValue,
+                        'image': 'assets/food.jpg',
+                      };
+                      widget.addProduct(product);
+                      Navigator.pushReplacementNamed(context, '/products');
+                    }
                   },
                 )
               ],
