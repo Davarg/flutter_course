@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 
+import '../widgets/products/price_tag.dart';
+
 class ProductPage extends StatelessWidget {
   final String title;
+  final String desc;
+  final double price;
   final String imageUrl;
 
-  ProductPage(this.title, this.imageUrl);
+  ProductPage(this.title, this.desc, this.price, this.imageUrl);
 
   void _showWarningDialog(BuildContext context) {
     showDialog(
@@ -42,17 +46,58 @@ class ProductPage extends StatelessWidget {
         appBar: AppBar(
           title: Text(title),
         ),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Image.asset(imageUrl),
-            Text('Details!'),
-            RaisedButton(
-              color: Theme.of(context).accentColor,
-              child: Text('DELETE'),
-              onPressed: () => _showWarningDialog(context),
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Image.asset(imageUrl),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      title,
+                      style: TextStyle(
+                        fontSize: 26.0,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Oswald',
+                      ),
+                    ),
+                    SizedBox(
+                      width: 8.0,
+                    ),
+                    PriceTag(price.toString()),
+                  ],
+                ),
+                DecoratedBox(
+                  decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.grey,
+                        width: 1.9,
+                      ),
+                      borderRadius: BorderRadius.circular(6.0)),
+                  child: Padding(
+                    child: Text('Union Square, San Francisco'),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.5),
+                  ),
+                ),
+                Text(
+                  desc,
+                  style: TextStyle(
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.normal,
+                    fontFamily: 'Oswald',
+                  ),
+                ),
+                RaisedButton(
+                  color: Theme.of(context).accentColor,
+                  child: Text('DELETE'),
+                  onPressed: () => _showWarningDialog(context),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

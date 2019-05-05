@@ -15,25 +15,44 @@ class _AuthPageState extends State<AuthPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Login'),
-        ),
-        body: SafeArea(
-          child: Container(
-              margin: EdgeInsets.all(10.0),
-              child: ListView(
+      appBar: AppBar(
+        title: Text('Login'),
+      ),
+      body: SafeArea(
+        child: Container(
+          padding: EdgeInsets.all(10.0),
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              colorFilter: ColorFilter.mode(
+                Colors.black.withOpacity(0.5),
+                BlendMode.dstATop,
+              ),
+              fit: BoxFit.cover,
+              image: AssetImage('assets/background.jpg'),
+            ),
+          ),
+          child: Center(
+            child: SingleChildScrollView(
+              child: Column(
                 children: <Widget>[
                   TextField(
                     decoration: InputDecoration(
                       hintText: 'Email',
+                      filled: true,
+                      fillColor: Colors.white,
                     ),
                     keyboardType: TextInputType.emailAddress,
                     onChanged: (String v) => _emailValue = v,
+                  ),
+                  SizedBox(
+                    height: 10.0,
                   ),
                   TextField(
                     obscureText: true,
                     decoration: InputDecoration(
                       hintText: 'Password',
+                      filled: true,
+                      fillColor: Colors.white,
                     ),
                     keyboardType: TextInputType.text,
                     onChanged: (String v) => _passwordValue = v,
@@ -50,7 +69,13 @@ class _AuthPageState extends State<AuthPage> {
                   Padding(
                     padding: EdgeInsets.only(top: 20.0),
                     child: RaisedButton(
-                        child: Text('LOGIN'),
+                        child: Text(
+                          'LOGIN',
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                        color: Theme.of(context).primaryColor,
                         onPressed: () {
                           print(_emailValue);
                           print(_passwordValue);
@@ -58,7 +83,11 @@ class _AuthPageState extends State<AuthPage> {
                         }),
                   )
                 ],
-              )),
-        ));
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

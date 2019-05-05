@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+// import 'package:flutter/rendering.dart';
 
 import './pages/auth.dart';
 import './pages/products_admin.dart';
 import './pages/products.dart';
 import './pages/product.dart';
 
-/*void main() {
+void main() {
+  // debugPaintSizeEnabled = true;
+  // debugPaintBaselinesEnabled = true;
+  // debugPaintPointersEnabled = true;
   runApp(MyApp());
-}*/
-void main() => runApp(MyApp());
+}
+// void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
   @override
@@ -58,7 +62,11 @@ class _MyAppState extends State<MyApp> {
 
           return MaterialPageRoute<bool>(
             builder: (BuildContext context) => ProductPage(
-                _products[index]['title'], _products[index]['image']),
+                  _products[index]['title'],
+                  _products[index]['description'],
+                  _products[index]['price'],
+                  _products[index]['image'],
+                ),
           );
         }
 
